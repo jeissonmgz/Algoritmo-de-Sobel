@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <title>Get and Put image data sample</title>
+  <style type="text/css">
+     #MyCanvas {        
+       border:1px solid red;
+     }
+     
+     #YourCanvas {
+       border:1px solid blue;
+     }
+  </style>
+</head>
+<body> 
+
+<!--
+     
+   Click the image to copy canvas to the other canvas
+   
+   <img id="scream" src="img_the_scream.jpg" alt="The Scream" width="220" height="277">
+   <div>
+     <canvas id="MyCanvas" width="400" height="400" >This browser or document mode doesn't support canvas</canvas>
+     <canvas id="YourCanvas" width="400" height="400">This browser or document mode doesn't support canvas</canvas>
+   </div>
+
+   <script>
+     // get first canvas and draw image
+     var canvas = document.getElementById("MyCanvas");
+     if (canvas.getContext) {
+       var ctx = canvas.getContext("2d");
+       ctx.beginPath();
+       ctx.rect(5, 5, 300, 250);
+       ctx.stroke();
+       ctx.arc(150, 150, 100, 0, Math.PI, false);
+       ctx.stroke();
+	   
+	   
+	   var img = new Image();
+img.src = "img_the_scream.jpg";
+	   
+  ctx.drawImage(img,0,0);
+  
+	   
+	   
+	   
+     }
+
+     canvas.addEventListener("click", function (){
+       // get both canvases, and copy image
+       var canvas2 = document.getElementById("YourCanvas");
+       if (canvas.getContext) {
+         var ctx = canvas.getContext("2d");                // Get the context on the first canvas.
+         var imageStuff = ctx.getImageData(0, 0, canvas.width, canvas.height);    // Get image data from the first canvas.
+       }
+       if (canvas2.getContext) {
+         var ctx2 = canvas2.getContext("2d");                // Get the context on the second canvas.
+		 
+		 for (var i=0;i<imageStuff.data.length;i+=4)
+    {
+    imageStuff.data[i]=255-imageStuff.data[i];
+    //imageStuff.data[i+1]=255-imageStuff.data[i+1];
+    //imageStuff.data[i+2]=255-imageStuff.data[i+2];
+   // imageStuff.data[i+3]=255;
+    }
+		 
+         ctx2.putImageData(imageStuff, 0, 0);                  // Put image data on the second canvas.
+       }
+     },false);
+     
+  </script>
+  -->
+  
+  <canvas height="600px" width="1000px" id="micanvas"></canvas>
+  <input type="number" max="100" min="0" value="100" id="nivel_r" />
+  <script src="main.js">
+</script>
+  
+  </body>
+</html> 
